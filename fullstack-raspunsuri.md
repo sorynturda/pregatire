@@ -1,3 +1,264 @@
+## 1. Ce este Programarea Orientată pe Obiecte?
+
+Programarea Orientată pe Obiecte (OOP) este un paradigm de programare care organizează codul software în jurul conceptului de "obiecte". Acestea sunt entități care pot conține date (atribute) și comportament (metode). OOP permite o mai bună structurare a codului, facilitând reutilizarea, modularitatea și întreținerea programelor.
+
+## 2. Principiile Fundamentale ale OOP
+
+### Încapsulare
+Încapsularea este principiul care ascunde detaliile interne ale unui obiect și oferă o interfață controlată pentru interacțiunea cu acel obiect. Ea permite:
+- Protejarea datelor interne
+- Controlarea accesului la membrii unei clase
+- Reducerea complexității și creșterea securității
+
+Exemplu în Java:
+```java
+public class ContBancar {
+    private double sold; // ascuns pentru exterior
+
+    public void depune(double suma) {
+        if (suma > 0) {
+            sold += suma;
+        }
+    }
+}
+```
+
+### Moștenire
+Moștenirea permite crearea de noi clase bazate pe clase existente, permițând reutilizarea și extinderea codului.
+
+```java
+public class Animal {
+    protected String nume;
+    
+    public void mananca() {
+        System.out.println("Animalul mănâncă");
+    }
+}
+
+public class Câine extends Animal {
+    public void latră() {
+        System.out.println("Ham! Ham!");
+    }
+}
+```
+
+### Polimorfism
+Polimorfismul permite obiectelor de diferite tipuri să răspundă la aceeași metodă în moduri diferite.
+
+```java
+public interface Formă {
+    double calculeazăArie();
+}
+
+public class Cerc implements Formă {
+    public double calculeazăArie() {
+        // implementare pentru cerc
+    }
+}
+
+public class Pătrat implements Formă {
+    public double calculeazăArie() {
+        // implementare pentru pătrat
+    }
+}
+```
+
+### Abstractizare
+Abstractizarea simplifică lucrurile complexe, ascunzând detaliile nenecesare și expunând doar caracteristicile esențiale.
+
+```java
+public abstract class Vehicul {
+    public abstract void merge();
+    
+    public void oprește() {
+        System.out.println("Vehiculul s-a oprit");
+    }
+}
+```
+
+## 3. Clasă vs Obiect
+
+### Clasă
+- Șablon sau blueprint pentru crearea obiectelor
+- Definește structura și comportamentul comun
+- Conține atribute și metode
+
+### Obiect
+- Instanță concretă a unei clase
+- Are proprietăți specifice
+- Poate apela metodele definite în clasă
+
+```java
+public class Persoană {
+    String nume;
+    int vârstă;
+}
+
+// Creare de obiecte
+Persoană ion = new Persoană();
+Persoană maria = new Persoană();
+```
+
+## 4. Clasă Abstractă vs Interfață
+
+### Clasă Abstractă
+- Poate conține implementări de metode
+- Permite moștenire simplă
+- Poate avea constructori
+- Poate conține variabile de stare
+
+### Interfață
+- Doar declarații de metode (înainte de Java 8)
+- Permite implementarea mai multor interfețe
+- Nu poate conține implementări (cu mici excepții în Java 8+)
+- Toate metodele sunt publice și abstracte
+
+## 5. Suprascrierea și Supraîncărcarea Metodelor
+
+### Suprascrierea (Overriding)
+- Redefinirea unei metode moștenite în clasa copil
+- Metodele trebuie să aibă aceeași semnătură
+
+```java
+class Tată {
+    public void salută() {
+        System.out.println("Salut de la tată");
+    }
+}
+
+class Copil extends Tată {
+    @Override
+    public void salută() {
+        System.out.println("Salut de la copil");
+    }
+}
+```
+
+### Supraîncărcarea (Overloading)
+- Definirea mai multor metode cu același nume, dar parametri diferiți
+- Se rezolvă la compilare
+
+```java
+class Calculator {
+    public int adună(int a, int b) {
+        return a + b;
+    }
+    
+    public double adună(double a, double b) {
+        return a + b;
+    }
+}
+```
+
+## 6. Moștenire Multiplă
+
+### Definiție
+Capacitatea unei clase de a moșteni caracteristici de la mai multe clase părinte.
+
+### Probleme
+- Complexitate ridicată
+- Conflicte de nume
+- Diamant (Diamond Problem)
+
+Multe limbaje (precum Java) nu suportă moștenirea multiplă pentru clase, dar o permit pentru interfețe.
+
+## 7. Design Patterns
+
+Design patterns sunt soluții standard și testate pentru probleme comune de proiectare software.
+
+### Observer Pattern
+- Pentru sisteme cu dependențe multe și schimbări de stare
+- Exemplu: Abonamente la newsletter
+
+### Strategy Pattern
+- Permite schimbarea algoritmilor la rulare
+- Util pentru sisteme care necesită flexibilitate
+
+## 8. Singleton Pattern
+
+Un pattern care garantează că o clasă are o singură instanță.
+
+```java
+public class Singleton {
+    private static Singleton instanță;
+    
+    private Singleton() {}
+    
+    public static Singleton obțineInstanță() {
+        if (instanță == null) {
+            instanță = new Singleton();
+        }
+        return instanță;
+    }
+}
+```
+
+Folosit pentru:
+- Manageri de resurse
+- Configurații
+- Obiecte care nu trebuie multiplicate
+
+## 9. Factory Pattern
+
+Oferă o interfață pentru crearea obiectelor, permițând subclaselor să aleagă tipul de obiect creat.
+
+```java
+interface Formă {
+    void desenează();
+}
+
+class Cerc implements Formă {
+    public void desenează() { /* implementare */ }
+}
+
+class Pătrat implements Formă {
+    public void desenează() { /* implementare */ }
+}
+
+class FabricăFormă {
+    public Formă creazăFormă(String tip) {
+        if (tip.equals("cerc")) return new Cerc();
+        if (tip.equals("pătrat")) return new Pătrat();
+        return null;
+    }
+}
+```
+
+## 10. Composition over Inheritance
+
+### Principiu
+- Favorizează "has-a" în locul "is-a"
+- Mai flexibil și ușor de întreținut
+- Reduce cuplarea dintre clase
+
+Exemplu:
+```java
+class Motor {
+    public void pornește() { /* ... */ }
+}
+
+class Mașină {
+    private Motor motor; // Composition
+    
+    public Mașină() {
+        motor = new Motor();
+    }
+}
+```
+
+**Avantaje:**
+- Mai mare flexibilitate
+- Mai ușor de modificat
+- Evită problemele complexe ale moștenirii multiple
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 ```python
 def generate_permutations(arr):
     if len(arr) <= 1:
