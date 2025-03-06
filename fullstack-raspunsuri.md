@@ -252,6 +252,112 @@ class Mașină {
 - Evită problemele complexe ale moștenirii multiple
 
 
+# Concepte fundamentale în programarea orientată pe obiecte
+
+## 11. Dependency Injection
+
+Dependency Injection (DI) este un pattern de design în care obiectele primesc dependențele lor din exterior, în loc să le creeze ele însele. Acest lucru promovează:
+
+- **Decuplarea codului**: Componentele devin mai puțin dependente una de alta
+- **Testabilitate îmbunătățită**: Dependențele pot fi ușor înlocuite cu mock-uri în timpul testelor
+- **Flexibilitate crescută**: Implementările concrete pot fi schimbate fără a modifica codul client
+
+Există trei tipuri principale de dependency injection:
+1. **Constructor Injection**: Dependențele sunt furnizate prin constructorul clasei
+2. **Setter Injection**: Dependențele sunt furnizate prin metode setter
+3. **Interface Injection**: Dependențele sunt furnizate prin implementarea unei interfețe specifice
+
+Frameworks moderne precum Spring (Java), ASP.NET Core (C#) sau Angular (TypeScript) oferă containere DI care gestionează automat crearea și injecția obiectelor.
+
+## 12. Excepțiile și gestionarea lor în OOP
+
+Excepțiile reprezintă un mecanism pentru gestionarea erorilor și a situațiilor neașteptate în timpul execuției programului. În OOP, excepțiile sunt obiecte care conțin informații despre eroare.
+
+**Gestionarea excepțiilor**:
+
+```java
+try {
+    // Cod care ar putea genera o excepție
+} catch (ExceptionType1 e1) {
+    // Gestionează ExceptionType1
+} catch (ExceptionType2 e2) {
+    // Gestionează ExceptionType2
+} finally {
+    // Cod executat întotdeauna, indiferent dacă apare sau nu o excepție
+}
+```
+
+**Principii de bună practică**:
+- Folosește excepții pentru situații excepționale, nu pentru controlul fluxului normal
+- Creează ierarhii de excepții personalizate pentru domeniile specifice aplicației
+- Capturează excepții cât mai specific posibil
+- Asigură-te că resursele sunt eliberate corespunzător folosind blocul `finally` sau construcții precum `try-with-resources` (Java) / `using` (C#)
+
+## 13. Immutability și importanța sa
+
+Immutability (imuabilitatea) se referă la crearea de obiecte a căror stare nu poate fi modificată după instanțiere. Un obiect imutabil, odată creat, rămâne neschimbat pe toată durata vieții sale.
+
+**Avantaje**:
+- **Thread-safety**: Obiectele imutabile sunt în mod inerent thread-safe, eliminate potențialele probleme de concurență
+- **Securitate**: Obiectele nu pot fi modificate în mod neașteptat
+- **Predictibilitate**: Comportamentul obiectelor este mai ușor de înțeles și de anticipat
+- **Caching și sharing**: Obiectele imutabile pot fi partajate și cache-uite în siguranță
+
+**Implementare** (exemplu în Java):
+```java
+public final class ImmutablePerson {
+    private final String name;
+    private final int age;
+
+    public ImmutablePerson(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    
+    // Nu există metode setter
+}
+```
+
+## 14. Clasele interne (Inner Classes)
+
+Clasele interne sunt clase definite în interiorul altor clase. Ele permit o organizare mai bună a codului prin gruparea claselor asociate logic.
+
+**Tipuri de clase interne**:
+1. **Clase interne statice**: Nu au acces la membri non-statici ai clasei exterioare
+2. **Clase interne non-statice**: Au acces la toți membrii clasei exterioare, inclusiv cei privați
+3. **Clase locale**: Definite în interiorul unei metode
+4. **Clase anonime**: Clase locale fără nume, definite și instanțiate într-o singură expresie
+
+**Când să folosim clase interne**:
+- Pentru a encapsula logica ajutătoare care este relevantă doar în contextul clasei exterioare
+- Pentru implementarea unor interfețe când implementarea este specifică clasei exterioare
+- Pentru a crea clase de date sau utilitare specifice clasei exterioare
+- Pentru a ascunde implementarea de restul aplicației
+
+## 15. SOLID și importanța sa
+
+SOLID este un acronim pentru cinci principii de design orientat pe obiecte care ajută la crearea unui cod mai ușor de întreținut, extins și testat:
+
+1. **S - Single Responsibility Principle (SRP)**: O clasă ar trebui să aibă un singur motiv pentru a fi modificată, adică o singură responsabilitate
+   
+2. **O - Open/Closed Principle (OCP)**: Entitățile software ar trebui să fie deschise pentru extindere, dar închise pentru modificare
+
+3. **L - Liskov Substitution Principle (LSP)**: Obiectele din program ar trebui să poată fi înlocuite cu instanțe ale subtipurilor lor fără a afecta corectitudinea programului
+
+4. **I - Interface Segregation Principle (ISP)**: Multe interfețe mici, specifice client, sunt mai bune decât o interfață generală, mare
+
+5. **D - Dependency Inversion Principle (DIP)**: Modulele de nivel înalt nu ar trebui să depindă de modulele de nivel jos; ambele ar trebui să depindă de abstracții
+
+**Beneficii ale aplicării SOLID**:
+- Cod mai ușor de întreținut și extins
+- Reducerea dependențelor între componente
+- Îmbunătățirea testabilității
+- Reducerea rigidității și fragilității codului
+- Facilitarea reutilizării codului
+
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
